@@ -43,6 +43,7 @@
     background: var(--white);
     color: var(--text);
     font-family: 'Source Sans 3', sans-serif;
+    font-size: 16px;
     font-weight: 400;
     line-height: 1.7;
     overflow-x: hidden;
@@ -455,6 +456,13 @@
     max-width: 520px;
   }
 
+  .update-body { font-size: 17px; }
+  .driver-text { font-size: 15.5px; }
+  .material-desc { font-size: 15px; }
+  .detail-table td { font-size: 15px; }
+  .detail-table td:first-child { font-size: 11px; }
+  .contact-val { font-size: 15.5px; }
+
   /* VIDEO */
   .video-section {
     background: var(--off-white);
@@ -778,7 +786,7 @@
   }
 
   .cta-card-desc {
-    font-size: 15px;
+    font-size: 16px;
     color: rgba(255,255,255,0.58);
     line-height: 1.8;
     margin-bottom: 32px;
@@ -797,7 +805,7 @@
     display: flex;
     align-items: flex-start;
     gap: 10px;
-    font-size: 14px;
+    font-size: 15px;
     color: rgba(255,255,255,0.65);
   }
 
@@ -1005,7 +1013,7 @@
   .footer-links a:hover { color: rgba(255,255,255,0.7); }
 
   .footer-disc {
-    font-size: 11px;
+    font-size: 12px;
     color: rgba(255,255,255,0.3);
     max-width: 480px;
     text-align: right;
@@ -1055,6 +1063,133 @@
     white-space: nowrap;
   }
   .track-toast.show { transform: translateX(-50%) translateY(0); }
+
+
+  /* INVESTOR GATE */
+  .iaim-gate-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 9998;
+    background: rgba(10,15,40,0.92);
+    backdrop-filter: blur(10px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+  }
+
+  .iaim-gate-card {
+    background: var(--white);
+    border-radius: 16px;
+    max-width: 580px;
+    width: 100%;
+    padding: 52px 48px;
+    text-align: center;
+    box-shadow: 0 24px 80px rgba(10,15,40,0.35);
+  }
+
+  .iaim-gate-logo {
+    height: 38px;
+    width: auto;
+    margin: 0 auto 22px;
+    display: block;
+  }
+
+  .iaim-gate-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 40px;
+    line-height: 1.1;
+    color: var(--navy);
+    margin-bottom: 10px;
+  }
+
+  .iaim-gate-subtitle {
+    color: var(--orange);
+    font-size: 14px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+
+  .iaim-gate-body {
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 16px;
+    color: var(--text-mid);
+    line-height: 1.75;
+    max-width: 520px;
+    margin: 0 auto 28px;
+  }
+
+  .iaim-gate-actions {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 14px;
+  }
+
+  .iaim-gate-btn {
+    min-width: 220px;
+    padding: 13px 18px;
+    border-radius: 6px;
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+
+  .iaim-gate-btn-yes {
+    background: var(--orange);
+    border: 1px solid var(--orange);
+    color: var(--white);
+  }
+
+  .iaim-gate-btn-no {
+    background: transparent;
+    border: 1px solid var(--border-strong);
+    color: var(--navy);
+  }
+
+  .iaim-gate-legal {
+    font-size: 11px;
+    color: var(--text-light);
+    font-style: italic;
+    line-height: 1.5;
+  }
+
+  .iaim-restricted-wrap {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    text-align: center;
+    background: var(--white);
+  }
+
+  .iaim-restricted-card {
+    max-width: 620px;
+  }
+
+  .iaim-restricted-logo {
+    height: 42px;
+    width: auto;
+    margin: 0 auto 24px;
+    display: block;
+  }
+
+  .iaim-restricted-title {
+    font-family: 'Playfair Display', serif;
+    color: var(--navy);
+    font-size: 42px;
+    margin-bottom: 12px;
+  }
+
+  .iaim-restricted-body {
+    font-size: 16px;
+    color: var(--text-mid);
+    line-height: 1.75;
+  }
 
   /* MOBILE */
   @media (max-width: 900px) {
@@ -1499,19 +1634,84 @@
 <script>
 const urlParams = new URLSearchParams(window.location.search);
 const visitorEmail = urlParams.get('email') || '';
-const utmSource = urlParams.get('utm_source') || 'microsite';
+const utmSource = urlParams.get('utm_source') || 'email';
 const utmCampaign = urlParams.get('utm_campaign') || 'india2030_q1_2026';
-const utmContent = urlParams.get('utm_content') || '';
 
-// ══ YouTube — paste your video ID only (from youtube.com/watch?v=THIS_PART) ══
+// ?? YouTube ? paste your video ID only (from youtube.com/watch?v=THIS_PART) ??
 const YOUTUBE_VIDEO_ID = 't_ee3OHYJBk';
 
-const MAKE_WEBHOOK_URL = 'PASTE_YOUR_MAKE_WEBHOOK_URL_HERE';
-
-/** Optional Netlify (or other) endpoint for a server-side audit log — see netlify/functions/track-material.mjs */
+/** Optional Netlify (or other) endpoint for a server-side audit log ? see netlify/functions/track-material.mjs */
 const MATERIAL_TRACK_WEBHOOK = '';
 
-// ── CLICK + MATERIAL TRACKING ───────────────────────────────────
+(function initInvestorGate() {
+  const QUAL_KEY = 'iaim_investor_qualified';
+  const logoSrc = (document.querySelector('.nav-logo img') || {}).src || '';
+  const prior = sessionStorage.getItem(QUAL_KEY);
+  document.body.style.visibility = 'hidden';
+
+  function releasePage() {
+    document.body.style.visibility = 'visible';
+  }
+
+  function showRestrictedView() {
+    document.body.innerHTML = `
+      <div class="iaim-restricted-wrap">
+        <div class="iaim-restricted-card">
+          ${logoSrc ? `<img src="${logoSrc}" alt="India Avenue" class="iaim-restricted-logo">` : ''}
+          <h1 class="iaim-restricted-title">Access Restricted</h1>
+          <p class="iaim-restricted-body">The India 2030 Fund is available to wholesale and sophisticated investors only. If you believe you meet these criteria, please contact us directly at IA@indiaavenue.com.au or call (02) 9071 0124.</p>
+        </div>
+      </div>`;
+    releasePage();
+  }
+
+  if (prior === 'yes') {
+    releasePage();
+    return;
+  }
+  if (prior === 'no') {
+    showRestrictedView();
+    return;
+  }
+
+  const overlay = document.createElement('div');
+  overlay.className = 'iaim-gate-overlay';
+  overlay.innerHTML = `
+    <div class="iaim-gate-card">
+      ${logoSrc ? `<img src="${logoSrc}" alt="India Avenue" class="iaim-gate-logo">` : ''}
+      <h2 class="iaim-gate-title">Important Notice</h2>
+      <div class="iaim-gate-subtitle">Wholesale & Sophisticated Investors Only</div>
+      <p class="iaim-gate-body">The India 2030 Fund is designed exclusively for wholesale and sophisticated investors as defined under section 708 of the Corporations Act 2001 (Cth). By proceeding, you confirm that you meet these criteria and understand that this material does not constitute financial advice.</p>
+      <div class="iaim-gate-actions">
+        <button type="button" class="iaim-gate-btn iaim-gate-btn-yes" id="iaimGateYes">Yes, I qualify ? View Materials</button>
+        <button type="button" class="iaim-gate-btn iaim-gate-btn-no" id="iaimGateNo">No, I do not qualify</button>
+      </div>
+      <p class="iaim-gate-legal">This notice is required under Australian financial services law. AFSL 478233.</p>
+    </div>`;
+
+  document.body.appendChild(overlay);
+  releasePage();
+
+  const yesBtn = document.getElementById('iaimGateYes');
+  const noBtn = document.getElementById('iaimGateNo');
+
+  if (yesBtn) {
+    yesBtn.addEventListener('click', () => {
+      sessionStorage.setItem(QUAL_KEY, 'yes');
+      overlay.remove();
+    });
+  }
+
+  if (noBtn) {
+    noBtn.addEventListener('click', () => {
+      sessionStorage.setItem(QUAL_KEY, 'no');
+      overlay.remove();
+      showRestrictedView();
+    });
+  }
+})();
+
+// ?? CLICK + MATERIAL TRACKING ???????????????????????????????????
 const clickLog = JSON.parse(localStorage.getItem('iaim_clicks') || '[]');
 
 function trackMaterialOnce(label) {
@@ -1532,23 +1732,22 @@ function trackClick(label) {
   try { localStorage.setItem('iaim_clicks', JSON.stringify(clickLog.slice(-500))); } catch (err) {}
 
   if (visitorEmail) {
-    fetch(MAKE_WEBHOOK_URL, {
+    fetch('https://script.google.com/macros/s/AKfycbw0yA4xKuCOIgI8SSNp0TyB-hT1Jj6AhoXySliFckC4Bm4qoCLEZXiz7vcpbLru4BKa/exec', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         email: visitorEmail,
         material: label,
-        timestamp: new Date().toISOString(),
         utm_source: utmSource,
         utm_campaign: utmCampaign,
-        utm_content: utmContent,
         page_url: window.location.href
-      })
+      }),
+      mode: 'no-cors'
     }).catch(() => {});
   }
 
   const toast = document.getElementById('trackToast');
-  toast.textContent = '✓ ' + label.replace(/_/g, ' ');
+  toast.textContent = '? ' + label.replace(/_/g, ' ');
   toast.classList.add('show');
   setTimeout(() => toast.classList.remove('show'), 2200);
 
@@ -1575,7 +1774,7 @@ document.querySelectorAll('[data-track]').forEach(el => {
   el.addEventListener('click', () => trackClick(el.dataset.track));
 });
 
-// ── MODAL CONTROLS ───────────────────────────────────────────────
+// ?? MODAL CONTROLS ???????????????????????????????????????????????
 function openForm(type) {
   const id = type === 'call' ? 'callModal' : 'investModal';
   document.getElementById(id).classList.add('active');
@@ -1597,19 +1796,14 @@ document.addEventListener('keydown', e => {
     document.querySelectorAll('.form-modal.active').forEach(m => closeModal(m.id));
 });
 
-(function setupVisitorEmailPrefill() {
-  function prefillCallEmail() {
-    const emailInput = document.querySelector('#callModal input[type="email"]');
-    if (emailInput && visitorEmail) emailInput.value = visitorEmail;
+document.addEventListener('DOMContentLoaded', () => {
+  const emailInput = document.querySelector('#callModal input[type="email"]');
+  if (emailInput && visitorEmail) {
+    emailInput.value = visitorEmail;
   }
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', prefillCallEmail);
-  } else {
-    prefillCallEmail();
-  }
-})();
+});
 
-// ── HubSpot Forms API submit ─────────────────────────────────────
+// ?? HubSpot Forms API submit ?????????????????????????????????????
 function submitForm(e, type) {
   e.preventDefault();
   const content = type === 'call' ? 'callFormContent' : 'investFormContent';
@@ -1621,34 +1815,33 @@ function submitForm(e, type) {
   const data = {};
   new FormData(form).forEach((v, k) => { data[k] = typeof v === 'string' ? v : String(v); });
 
-  if (submitBtn) { submitBtn.disabled = true; submitBtn.dataset._t = submitBtn.textContent; submitBtn.textContent = 'Sending…'; }
-
   fetch('https://api.hsforms.com/submissions/v3/integration/submit/2460519/d84b0b72-f8fb-4462-bf2f-9615e240fe4d', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
       fields: [
-        { name: 'firstname', value: data.firstname || '' },
-        { name: 'lastname',  value: data.lastname  || '' },
-        { name: 'email',     value: data.email || visitorEmail || '' },
-        { name: 'phone',     value: data.phone   || '' },
-        { name: 'company',   value: data.company  || '' },
+        { name: 'firstname',     value: data.firstname     || '' },
+        { name: 'lastname',      value: data.lastname      || '' },
+        { name: 'email',         value: data.email         || visitorEmail || '' },
+        { name: 'phone',         value: data.phone         || '' },
+        { name: 'company',       value: data.company       || '' },
         { name: 'investor_type', value: data.investor_type || '' },
-        { name: 'message',   value: 'Preferred time: ' + (data.preferred_meeting_time || data.meeting_time || 'Flexible') + ' | Notes: ' + (data.message || data.india_2030_interest || 'None') }
+        { name: 'message',       value: 'Preferred time: ' + (data.meeting_time || 'Flexible') + ' | Notes: ' + (data.message || '') }
       ],
       context: {
         pageUri: window.location.href,
-        pageName: 'India 2030 Fund — March 2026 Quarterly Update'
+        pageName: 'India 2030 Fund ? March 2026 Quarterly Update'
       }
     })
   }).catch(() => {});
 
+  if (submitBtn) { submitBtn.disabled = true; submitBtn.dataset._t = submitBtn.textContent; submitBtn.textContent = 'Sending?'; }
   document.getElementById(content).style.display = 'none';
   document.getElementById(success).style.display = 'block';
   if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = submitBtn.dataset._t || submitBtn.textContent; }
 }
 
-// ── SCROLL REVEAL ────────────────────────────────────────────────
+// ?? SCROLL REVEAL ????????????????????????????????????????????????
 const observer = new IntersectionObserver(entries => {
   entries.forEach((entry, i) => {
     if (entry.isIntersecting) {
@@ -1660,7 +1853,7 @@ const observer = new IntersectionObserver(entries => {
 
 document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-// ── YouTube embed + watch link (single place to set ID) ───────────
+// ?? YouTube embed + watch link (single place to set ID) ???????????
 (function initYouTube() {
   const raw = String(YOUTUBE_VIDEO_ID || '').trim();
   const id = raw.replace(/[^a-zA-Z0-9_-]/g, '');
