@@ -1497,13 +1497,17 @@
 </div>
 
 <script>
+const urlParams = new URLSearchParams(window.location.search);
+const visitorEmail = urlParams.get('email') || '';
+const utmSource = urlParams.get('utm_source') || 'microsite';
+const utmCampaign = urlParams.get('utm_campaign') || 'india2030_q1_2026';
+const utmContent = urlParams.get('utm_content') || '';
+
 // ══ YouTube — paste your video ID only (from youtube.com/watch?v=THIS_PART) ══
 const YOUTUBE_VIDEO_ID = 't_ee3OHYJBk';
 
-// ══ HubSpot Forms API — replace placeholders before go-live ═══════════════════
-const HUBSPOT_PORTAL_ID = 'YOUR_PORTAL_ID';
-const HUBSPOT_FORM_CALL = 'YOUR_CALL_FORM_ID';
-const HUBSPOT_FORM_INTEREST = 'YOUR_INTEREST_FORM_ID';
+const MAKE_WEBHOOK_URL = 'PASTE_YOUR_MAKE_WEBHOOK_URL_HERE';
+
 /** Optional Netlify (or other) endpoint for a server-side audit log — see netlify/functions/track-material.mjs */
 const MATERIAL_TRACK_WEBHOOK = '';
 
@@ -1526,6 +1530,22 @@ function trackClick(label) {
   };
   clickLog.push(event);
   try { localStorage.setItem('iaim_clicks', JSON.stringify(clickLog.slice(-500))); } catch (err) {}
+
+  if (visitorEmail) {
+    fetch(MAKE_WEBHOOK_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        email: visitorEmail,
+        material: label,
+        timestamp: new Date().toISOString(),
+        utm_source: utmSource,
+        utm_campaign: utmCampaign,
+        utm_content: utmContent,
+        page_url: window.location.href
+      })
+    }).catch(() => {});
+  }
 
   const toast = document.getElementById('trackToast');
   toast.textContent = '✓ ' + label.replace(/_/g, ' ');
@@ -1577,17 +1597,20 @@ document.addEventListener('keydown', e => {
     document.querySelectorAll('.form-modal.active').forEach(m => closeModal(m.id));
 });
 
-// ── HubSpot Forms API submit ─────────────────────────────────────
-function formDataToHubSpotFields(form) {
-  const fields = [];
-  new FormData(form).forEach((raw, name) => {
-    const value = typeof raw === 'string' ? raw.trim() : String(raw);
-    if (value !== '') fields.push({ name, value });
-  });
-  return fields;
-}
+(function setupVisitorEmailPrefill() {
+  function prefillCallEmail() {
+    const emailInput = document.querySelector('#callModal input[type="email"]');
+    if (emailInput && visitorEmail) emailInput.value = visitorEmail;
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', prefillCallEmail);
+  } else {
+    prefillCallEmail();
+  }
+})();
 
-async function submitForm(e, type) {
+// ── HubSpot Forms API submit ─────────────────────────────────────
+function submitForm(e, type) {
   e.preventDefault();
   const content = type === 'call' ? 'callFormContent' : 'investFormContent';
   const success = type === 'call' ? 'callSuccess' : 'investSuccess';
@@ -1595,47 +1618,30 @@ async function submitForm(e, type) {
   const submitBtn = form.querySelector('[type="submit"]');
   trackClick('form_submit_' + type);
 
-  const formId = type === 'call' ? HUBSPOT_FORM_CALL : HUBSPOT_FORM_INTEREST;
-  const portalOk = HUBSPOT_PORTAL_ID && !String(HUBSPOT_PORTAL_ID).includes('YOUR_PORTAL');
-  const formOk = formId && !String(formId).includes('YOUR_');
+  const data = {};
+  new FormData(form).forEach((v, k) => { data[k] = typeof v === 'string' ? v : String(v); });
 
   if (submitBtn) { submitBtn.disabled = true; submitBtn.dataset._t = submitBtn.textContent; submitBtn.textContent = 'Sending…'; }
 
-  if (portalOk && formOk) {
-    const payload = {
-      submittedAt: Date.now(),
-      fields: formDataToHubSpotFields(form),
+  fetch('https://api.hsforms.com/submissions/v3/integration/submit/2460519/d84b0b72-f8fb-4462-bf2f-9615e240fe4d', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      fields: [
+        { name: 'firstname', value: data.firstname || '' },
+        { name: 'lastname',  value: data.lastname  || '' },
+        { name: 'email',     value: data.email || visitorEmail || '' },
+        { name: 'phone',     value: data.phone   || '' },
+        { name: 'company',   value: data.company  || '' },
+        { name: 'investor_type', value: data.investor_type || '' },
+        { name: 'message',   value: 'Preferred time: ' + (data.preferred_meeting_time || data.meeting_time || 'Flexible') + ' | Notes: ' + (data.message || data.india_2030_interest || 'None') }
+      ],
       context: {
         pageUri: window.location.href,
-        pageName: document.title
+        pageName: 'India 2030 Fund — March 2026 Quarterly Update'
       }
-    };
-    try {
-      const res = await fetch(
-        'https://api.hsforms.com/submissions/v3/integration/submit/' +
-          encodeURIComponent(HUBSPOT_PORTAL_ID) + '/' + encodeURIComponent(formId),
-        {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload)
-        }
-      );
-      if (!res.ok) {
-        const errText = await res.text();
-        console.error('HubSpot form error', res.status, errText);
-        alert('We could not submit the form just now. Please try again or email us directly.');
-        if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = submitBtn.dataset._t || 'Submit'; }
-        return;
-      }
-    } catch (err) {
-      console.error(err);
-      alert('Network error — please check your connection and try again.');
-      if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = submitBtn.dataset._t || 'Submit'; }
-      return;
-    }
-  } else {
-    console.warn('[India 2030 microsite] HubSpot portal/form IDs not configured — form not sent to HubSpot.');
-  }
+    })
+  }).catch(() => {});
 
   document.getElementById(content).style.display = 'none';
   document.getElementById(success).style.display = 'block';
