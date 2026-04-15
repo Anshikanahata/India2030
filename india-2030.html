@@ -43,7 +43,7 @@
     background: var(--white);
     color: var(--text);
     font-family: 'Source Sans 3', sans-serif;
-    font-size: 16px;
+    font-size: 17px;
     font-weight: 400;
     line-height: 1.7;
     overflow-x: hidden;
@@ -193,7 +193,7 @@
   }
 
   .hero-desc {
-    font-size: 17px;
+    font-size: 18px;
     color: rgba(255,255,255,0.72);
     max-width: 440px;
     line-height: 1.85;
@@ -201,6 +201,23 @@
     font-weight: 300;
     opacity: 0;
     animation: fadeUp 0.9s ease forwards 0.65s;
+  }
+
+  .hero-scroll-note {
+    font-size: 14px;
+    font-family: 'DM Mono', monospace;
+    letter-spacing: 0.12em;
+    color: rgba(255,255,255,0.45);
+    margin-top: -28px;
+    margin-bottom: 44px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .hero-scroll-note-arrow {
+    display: inline-block;
+    animation: bounce 1.8s ease-in-out infinite;
   }
 
   .hero-ctas {
@@ -449,19 +466,22 @@
   .section-title em { font-style: italic; color: var(--green); }
 
   .section-desc {
-    font-size: 17px;
+    font-size: 18px;
     color: var(--text-mid);
     line-height: 1.85;
     font-weight: 300;
     max-width: 520px;
   }
 
-  .update-body { font-size: 17px; }
-  .driver-text { font-size: 15.5px; }
-  .material-desc { font-size: 15px; }
-  .detail-table td { font-size: 15px; }
+  .intro-stat-note { font-size: 14px; }
+  .update-callout p { font-size: 16px; }
+
+  .update-body { font-size: 18px; }
+  .driver-text { font-size: 16.5px; }
+  .material-desc { font-size: 16px; }
+  .detail-table td { font-size: 16px; }
   .detail-table td:first-child { font-size: 11px; }
-  .contact-val { font-size: 15.5px; }
+  .contact-val { font-size: 16.5px; }
 
   /* VIDEO */
   .video-section {
@@ -786,7 +806,7 @@
   }
 
   .cta-card-desc {
-    font-size: 16px;
+    font-size: 17px;
     color: rgba(255,255,255,0.58);
     line-height: 1.8;
     margin-bottom: 32px;
@@ -805,9 +825,11 @@
     display: flex;
     align-items: flex-start;
     gap: 10px;
-    font-size: 15px;
+    font-size: 16px;
     color: rgba(255,255,255,0.65);
   }
+
+  .cta-points li { font-size: 16px; }
 
   .cta-card-points li::before {
     content: '✓';
@@ -1013,7 +1035,7 @@
   .footer-links a:hover { color: rgba(255,255,255,0.7); }
 
   .footer-disc {
-    font-size: 12px;
+    font-size: 13px;
     color: rgba(255,255,255,0.3);
     max-width: 480px;
     text-align: right;
@@ -1042,6 +1064,11 @@
   @keyframes fadeIn {
     from { opacity: 0; }
     to { opacity: 1; }
+  }
+
+  @keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(4px); }
   }
 
   /* CLICK TRACKER TOAST */
@@ -1313,7 +1340,7 @@
 <!-- RESOURCES / MATERIALS -->
 <section class="resources-section" id="resources">
   <div class="resources-inner">
-    <div class="section-tag">Materials</div>
+    <div class="section-tag">Fund Materials & Portfolio Spotlight</div>
     <h2 class="section-title reveal">Fund <em>materials</em></h2>
     <p class="section-desc reveal">Quarterly update, presentation, and a visual snapshot — everything in one place for wholesale and sophisticated investors reviewing the India 2030 Fund.</p>
 
@@ -1438,8 +1465,8 @@
     <div class="cta-cards reveal">
       <div class="cta-card">
         <div class="cta-card-num">01</div>
-        <div class="cta-card-title">Book a 20-Min Call</div>
-        <p class="cta-card-desc">Speak directly with our investment team. We'll walk you through the fund and discuss fit for your portfolio.</p>
+        <div class="cta-card-title">Not an Investor Yet?</div>
+        <p class="cta-card-desc">Speak directly with Mugunthan and the team. We'll walk you through the India 2030 Fund, discuss the current opportunity, and answer any questions ? no obligation whatsoever.</p>
         <ul class="cta-card-points">
           <li>Speak with Mugunthan & the investment team</li>
           <li>No obligation — just a conversation</li>
@@ -1452,8 +1479,8 @@
 
       <div class="cta-card">
         <div class="cta-card-num">02</div>
-        <div class="cta-card-title">Download Application Form</div>
-        <p class="cta-card-desc">Prefer to go direct? Download our application form, complete it at your own pace, and send it back to us.</p>
+        <div class="cta-card-title">Already an Investor?</div>
+        <p class="cta-card-desc">Looking to increase your position? Download our Additional Investment Form to top up your holding in the India 2030 Fund at your own pace.</p>
         <ul class="cta-card-points">
           <li>Complete and sign at your own pace</li>
           <li>Email the completed form back to us</li>
