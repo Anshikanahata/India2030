@@ -1674,6 +1674,7 @@
 <script>
 const urlParams = new URLSearchParams(window.location.search);
 const visitorEmail = urlParams.get('email') || '';
+console.log('Visitor email from URL:', visitorEmail);
 const utmSource = urlParams.get('utm_source') || 'email';
 const utmCampaign = urlParams.get('utm_campaign') || 'india2030_q1_2026';
 
@@ -1762,6 +1763,7 @@ function trackMaterialOnce(label) {
 }
 
 function trackClick(label) {
+  console.log('Track fired:', label, 'Email:', visitorEmail);
   const event = {
     label,
     timestamp: new Date().toISOString(),
