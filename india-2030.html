@@ -203,21 +203,25 @@
     animation: fadeUp 0.9s ease forwards 0.65s;
   }
 
-  .hero-scroll-note {
-    font-size: 14px;
+  .hero-scroll-guide {
     font-family: 'DM Mono', monospace;
-    letter-spacing: 0.12em;
-    color: rgba(255,255,255,0.45);
-    margin-top: -28px;
-    margin-bottom: 44px;
+    font-size: 13px;
+    letter-spacing: 0.1em;
+    color: rgba(255,255,255,0.42);
+    margin-top: -20px;
+    margin-bottom: 36px;
+    max-width: 440px;
+    line-height: 1.8;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     gap: 8px;
+    flex-wrap: wrap;
   }
 
-  .hero-scroll-note-arrow {
+  .scroll-arrow {
     display: inline-block;
     animation: bounce 1.8s ease-in-out infinite;
+    flex-shrink: 0;
   }
 
   .hero-ctas {
@@ -612,6 +616,19 @@
     gap: 24px;
     margin-top: 40px;
     max-width: 880px;
+  }
+
+  .resource-grid-spotlight--single {
+    grid-template-columns: 1fr;
+    max-width: 480px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .spotlight-embedded {
+    margin-top: 48px;
+    padding-top: 48px;
+    border-top: 1px solid var(--border);
   }
 
   .resource-card-spotlight {
@@ -1068,7 +1085,7 @@
 
   @keyframes bounce {
     0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(4px); }
+    50% { transform: translateY(5px); }
   }
 
   /* CLICK TRACKER TOAST */
@@ -1251,8 +1268,8 @@
   </a>
   <ul class="nav-links">
     <li><a href="#overview">Overview</a></li>
-    <li><a href="#video">Philosophy</a></li>
-    <li><a href="#resources">Materials</a></li>
+    <li><a href="#update">Philosophy</a></li>
+    <li><a href="#materials">Materials</a></li>
     <li><a href="#spotlight">Spotlight</a></li>
     <li><a href="#invest" class="nav-cta">Invest Now</a></li>
   </ul>
@@ -1267,6 +1284,13 @@
     <h1 class="hero-title">Investing in<br><em>India's</em> future</h1>
     <div class="hero-fund-name">India 2030</div>
     <p class="hero-desc">A concentrated, high-conviction portfolio capturing India's structural growth story — built for investors who see the opportunity others miss.</p>
+    <p class="hero-scroll-guide">
+      Scroll to explore our quarterly update,
+      fund materials, portfolio spotlight &amp;
+      investment philosophy — everything you need
+      to make an informed decision.
+      <span class="scroll-arrow">↓</span>
+    </p>
     <div class="hero-ctas">
       <button class="btn-primary" onclick="openForm('call'); trackClick('hero_book_call')">
         📅 Book a 20-Min Call
@@ -1314,7 +1338,7 @@
 <div class="section-divider"></div>
 
 <!-- VIDEO — High-conviction philosophy (set id in script: YOUTUBE_VIDEO_ID) -->
-<section class="video-section" id="video">
+<section class="video-section" id="update">
   <div class="video-inner">
     <div>
       <div class="section-tag">Investment philosophy</div>
@@ -1338,7 +1362,7 @@
 <div class="section-divider"></div>
 
 <!-- RESOURCES / MATERIALS -->
-<section class="resources-section" id="resources">
+<section class="resources-section" id="materials">
   <div class="resources-inner">
     <div class="section-tag">Fund Materials & Portfolio Spotlight</div>
     <h2 class="section-title reveal">Fund <em>materials</em></h2>
@@ -1399,54 +1423,33 @@
         <div class="resource-link">View Infographic →</div>
       </a>
     </div>
-  </div>
-</section>
 
-<div class="section-divider"></div>
+    <div id="spotlight" class="spotlight-section spotlight-embedded">
+      <div class="spotlight-inner">
+        <div class="section-tag">Portfolio spotlight</div>
+        <h2 class="section-title reveal">Shriram <em>Finance</em></h2>
+        <p class="spotlight-intro reveal">Shriram Finance has been a high‑conviction holding in the India 2030 portfolio. Download our insight piece below — adjust the copy in the HTML to match your compliance‑approved wording.</p>
 
-<!-- PORTFOLIO SPOTLIGHT — Files: materials/shriram/shriram-finance-01.pdf, shriram-finance-02.pdf -->
-<section class="spotlight-section" id="spotlight">
-  <div class="spotlight-inner">
-    <div class="section-tag">Portfolio spotlight</div>
-    <h2 class="section-title reveal">Shriram <em>Finance</em></h2>
-    <p class="spotlight-intro reveal">Shriram Finance has been a high‑conviction holding in the India 2030 portfolio. Two PDFs below — adjust the small titles and descriptions in the HTML to match your compliance‑approved filenames and wording.</p>
-
-    <div class="resource-grid-spotlight">
-      <a href="materials/shriram/shriram-finance-01.pdf"
-         target="_blank"
-         rel="noopener"
-         class="resource-card resource-card-spotlight reveal"
-         data-track="pdf_shriram_1">
-        <div class="resource-badge">
-          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14,2 14,8 20,8"/></svg>
-          PDF
+        <div class="resource-grid-spotlight resource-grid-spotlight--single">
+          <a href="materials/shriram/shriram-finance-01.pdf"
+             target="_blank"
+             rel="noopener"
+             class="resource-card resource-card-spotlight reveal"
+             data-track="pdf_shriram_insight">
+            <div class="resource-badge">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14,2 14,8 20,8"/></svg>
+              PDF
+            </div>
+            <p class="spotlight-pdf-kicker">Insight piece</p>
+            <div class="resource-icon-wrap">
+              <svg width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5"><path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <div class="resource-title">Shriram Finance — Insight Piece</div>
+            <p class="resource-desc">How we think about the franchise, retail lending model, and why it fits the India 2030 high‑conviction sleeve.</p>
+            <div class="resource-link">Download PDF →</div>
+          </a>
         </div>
-        <p class="spotlight-pdf-kicker">Thesis · business mix &amp; growth drivers</p>
-        <div class="resource-icon-wrap">
-          <svg width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5"><path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </div>
-        <div class="resource-title">Shriram Finance</div>
-        <p class="resource-desc">How we think about the franchise, retail lending model, and why it fits the India 2030 high‑conviction sleeve.</p>
-        <div class="resource-link">Download PDF →</div>
-      </a>
-
-      <a href="materials/shriram/shriram-finance-02.pdf"
-         target="_blank"
-         rel="noopener"
-         class="resource-card resource-card-spotlight reveal"
-         data-track="pdf_shriram_2">
-        <div class="resource-badge">
-          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14,2 14,8 20,8"/></svg>
-          PDF
-        </div>
-        <p class="spotlight-pdf-kicker">Credit · asset quality &amp; earnings outlook</p>
-        <div class="resource-icon-wrap">
-          <svg width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5"><path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </div>
-        <div class="resource-title">Shriram Finance</div>
-        <p class="resource-desc">Recent developments, provisioning trends, and what we are monitoring as long‑term holders.</p>
-        <div class="resource-link">Download PDF →</div>
-      </a>
+      </div>
     </div>
   </div>
 </section>
@@ -1507,7 +1510,7 @@
   </div>
   <ul class="footer-links">
     <li><a href="https://www.indiaavenue.com.au" target="_blank" rel="noopener">Website</a></li>
-    <li><a href="#resources">Materials</a></li>
+    <li><a href="#materials">Materials</a></li>
     <li><a href="#spotlight">Spotlight</a></li>
     <li><a href="#invest">Contact</a></li>
   </ul>
