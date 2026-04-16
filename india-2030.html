@@ -1426,6 +1426,8 @@
       </div>
     </div>
   </div>
+</section>
+
 <div class="section-divider"></div>
 
 <!-- VIDEO — High-conviction philosophy (set id in script: YOUTUBE_VIDEO_ID) -->
@@ -1448,10 +1450,6 @@
       <p class="video-caption reveal">Prefer YouTube? <a id="philosophy-youtube-link" href="https://www.youtube.com/" target="_blank" rel="noopener" data-track="youtube_video_new_tab">Open in YouTube →</a></p>
     </div>
   </div>
-</section>
-
-<div class="section-divider"></div>
-
 </section>
 
 <div class="section-divider"></div>
@@ -1899,7 +1897,7 @@ document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
       embed.removeEventListener('load', onTubeLoad);
       trackMaterialOnce('youtube_embed_philosophy');
     });
-    embed.src = 'https://www.youtube-nocookie.com/embed/' + id + '?rel=0&modestbranding=1';
+    embed.src = 'https://www.youtube.com/embed/' + id + '?rel=0&modestbranding=1&playsinline=1';
   }
   if (link) {
     link.href = 'https://www.youtube.com/watch?v=' + id;
