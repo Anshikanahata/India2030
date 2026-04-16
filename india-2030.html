@@ -526,6 +526,12 @@
 
   .video-placeholder:hover { opacity: 0.92; }
 
+  .video-placeholder.yt-poster-link {
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+
   .play-circle {
     width: 80px; height: 80px;
     border-radius: 50%;
@@ -1440,12 +1446,18 @@
     </div>
     <div>
       <div class="video-wrap reveal">
-        <iframe
-          id="philosophy-youtube-embed"
-          title="High-conviction investing — India 2030 Fund philosophy"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-          allowfullscreen
-          loading="lazy"></iframe>
+        <a id="philosophy-youtube-poster"
+           class="video-placeholder yt-poster-link"
+           href="#"
+           target="_blank"
+           rel="noopener"
+           title="Watch on YouTube"
+           data-track="youtube_embed_philosophy">
+          <div class="play-circle">
+            <svg width="20" height="22" viewBox="0 0 20 22"><polygon points="2,0 20,11 2,22"/></svg>
+          </div>
+          <div class="video-label">Watch on YouTube</div>
+        </a>
       </div>
       <p class="video-caption reveal">Prefer YouTube? <a id="philosophy-youtube-link" href="https://www.youtube.com/" target="_blank" rel="noopener" data-track="youtube_video_new_tab">Open in YouTube →</a></p>
     </div>
@@ -1881,26 +1893,26 @@ const observer = new IntersectionObserver(entries => {
 
 document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-// ?? YouTube embed + watch link (single place to set ID) ???????????
+// ?? YouTube thumbnail + watch link (avoids iframe Error 153 when embed is blocked) ??
 (function initYouTube() {
   const raw = String(YOUTUBE_VIDEO_ID || '').trim();
   const id = raw.replace(/[^a-zA-Z0-9_-]/g, '');
-  const embed = document.getElementById('philosophy-youtube-embed');
+  const poster = document.getElementById('philosophy-youtube-poster');
   const link = document.getElementById('philosophy-youtube-link');
+  const watchUrl = 'https://www.youtube.com/watch?v=' + id;
   if (!id || id === 'VIDEO_ID') {
     if (link) link.style.display = 'none';
-    if (embed) embed.style.display = 'none';
+    if (poster) poster.style.display = 'none';
     return;
   }
-  if (embed) {
-    embed.addEventListener('load', function onTubeLoad() {
-      embed.removeEventListener('load', onTubeLoad);
-      trackMaterialOnce('youtube_embed_philosophy');
-    });
-    embed.src = 'https://www.youtube.com/embed/' + id + '?rel=0&modestbranding=1&playsinline=1';
+  const thumb = 'https://i.ytimg.com/vi/' + id + '/hqdefault.jpg';
+  const overlay = 'linear-gradient(135deg, rgba(17,28,66,0.55), rgba(27,42,94,0.45))';
+  if (poster) {
+    poster.href = watchUrl;
+    poster.style.backgroundImage = overlay + ', url(\"' + thumb + '\")';
   }
   if (link) {
-    link.href = 'https://www.youtube.com/watch?v=' + id;
+    link.href = watchUrl;
   }
 })();
 </script>
