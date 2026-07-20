@@ -11,6 +11,7 @@
   Export local click history: run in browser console → copy(JSON.parse(localStorage.getItem('iaim_clicks')||'[]')))
 -->
 <!-- HubSpot tracking: Settings → Tracking Code → paste the snippet here so virtual pageviews in trackClick() attach to known contacts. -->
+<script type="text/javascript" id="hs-script-loader" async defer src="//js.hs-scripts.com/2460519.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Source+Sans+3:wght@300;400;500;600&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
 <style>
@@ -1676,7 +1677,7 @@ const urlParams = new URLSearchParams(window.location.search);
 const visitorEmail = urlParams.get('email') || '';
 console.log('Visitor email from URL:', visitorEmail);
 const utmSource = urlParams.get('utm_source') || 'email';
-const utmCampaign = urlParams.get('utm_campaign') || 'india2030_q1_2026';
+const utmCampaign = urlParams.get('utm_campaign') || 'india2030_june_2026';
 
 // ?? YouTube ? paste your video ID only (from youtube.com/watch?v=THIS_PART) ??
 const YOUTUBE_VIDEO_ID = 't_ee3OHYJBk';
