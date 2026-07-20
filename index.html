@@ -1407,26 +1407,26 @@
     <div id="spotlight" class="spotlight-section spotlight-embedded">
       <div class="spotlight-inner">
         <div class="section-tag">Portfolio spotlight</div>
-        <h2 class="section-title reveal">Shriram <em>Finance</em></h2>
-        <p class="spotlight-intro reveal">Shriram Finance has been a high‑conviction holding in the India 2030 portfolio. Download our insight piece below — adjust the copy in the HTML to match your compliance‑approved wording.</p>
+        <h2 class="section-title reveal">Aurobindo <em>Pharma</em></h2>
+        <p class="spotlight-intro reveal">Aurobindo Pharma has been a high‑conviction holding in the India 2030 portfolio. Read our insight piece below — adjust the copy in the HTML to match your compliance‑approved wording.</p>
 
         <div class="resource-grid-spotlight resource-grid-spotlight--single">
-          <a href="materials/shriram/shriram-finance-01.pdf"
+          <a href="https://indiaavenue.com.au/aurobindo-pharma-building-a-global-healthcare-leader/"
              target="_blank"
              rel="noopener"
              class="resource-card resource-card-spotlight reveal"
-             data-track="pdf_shriram_insight">
+             data-track="article_aurobindo_insight">
             <div class="resource-badge">
-              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14,2 14,8 20,8"/></svg>
-              PDF
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+              Article
             </div>
             <p class="spotlight-pdf-kicker">Insight piece</p>
             <div class="resource-icon-wrap">
               <svg width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5"><path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </div>
-            <div class="resource-title">Shriram Finance — Insight Piece</div>
-            <p class="resource-desc">How we think about the franchise, retail lending model, and why it fits the India 2030 high‑conviction sleeve.</p>
-            <div class="resource-link">Download PDF →</div>
+            <div class="resource-title">Aurobindo Pharma — Building a Global Healthcare Leader</div>
+            <p class="resource-desc">How we think about the franchise, its global formulations business, and why it fits the India 2030 high‑conviction sleeve.</p>
+            <div class="resource-link">Read Article →</div>
           </a>
         </div>
       </div>
@@ -1524,7 +1524,7 @@
     <li><a href="#spotlight">Spotlight</a></li>
     <li><a href="#invest">Contact</a></li>
   </ul>
-  <div class="footer-disc">This communication is for wholesale and sophisticated investors only. Past performance is not indicative of future returns. © 2026 India Avenue Investment Management Pty Ltd. AFSL 000000.</div>
+  <div class="footer-disc">This communication is for wholesale and sophisticated investors only. Past performance is not indicative of future returns. © 2026 India Avenue Investment Management Australia Pty Ltd. AFSL 478233.</div>
 </footer>
 
 <!-- BOOK A CALL MODAL -->
@@ -1846,7 +1846,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // ?? HubSpot Forms API submit ?????????????????????????????????????
-function submitForm(e, type) {
+async function submitForm(e, type) {
   e.preventDefault();
   const content = type === 'call' ? 'callFormContent' : 'investFormContent';
   const success = type === 'call' ? 'callSuccess' : 'investSuccess';
@@ -1857,30 +1857,43 @@ function submitForm(e, type) {
   const data = {};
   new FormData(form).forEach((v, k) => { data[k] = typeof v === 'string' ? v : String(v); });
 
-  fetch('https://api.hsforms.com/submissions/v3/integration/submit/2460519/d84b0b72-f8fb-4462-bf2f-9615e240fe4d', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      fields: [
-        { name: 'firstname',     value: data.firstname     || '' },
-        { name: 'lastname',      value: data.lastname      || '' },
-        { name: 'email',         value: data.email         || visitorEmail || '' },
-        { name: 'phone',         value: data.phone         || '' },
-        { name: 'company',       value: data.company       || '' },
-        { name: 'investor_type', value: data.investor_type || '' },
-        { name: 'message',       value: 'Preferred time: ' + (data.meeting_time || 'Flexible') + ' | Notes: ' + (data.message || '') }
-      ],
-      context: {
-        pageUri: window.location.href,
-        pageName: 'India 2030 Fund ? March 2026 Quarterly Update'
-      }
-    })
-  }).catch(() => {});
+  if (submitBtn) { submitBtn.disabled = true; submitBtn.dataset._t = submitBtn.textContent; submitBtn.textContent = 'Sending…'; }
 
-  if (submitBtn) { submitBtn.disabled = true; submitBtn.dataset._t = submitBtn.textContent; submitBtn.textContent = 'Sending?'; }
-  document.getElementById(content).style.display = 'none';
-  document.getElementById(success).style.display = 'block';
+  let ok = false;
+  try {
+    const res = await fetch('https://api.hsforms.com/submissions/v3/integration/submit/2460519/d84b0b72-f8fb-4462-bf2f-9615e240fe4d', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        fields: [
+          { name: 'firstname',     value: data.firstname     || '' },
+          { name: 'lastname',      value: data.lastname      || '' },
+          { name: 'email',         value: data.email         || visitorEmail || '' },
+          { name: 'phone',         value: data.phone         || '' },
+          { name: 'company',       value: data.company       || '' },
+          { name: 'investor_type', value: data.investor_type || '' },
+          { name: 'message',       value: 'Preferred time: ' + (data.meeting_time || 'Flexible') + ' | Notes: ' + (data.message || '') }
+        ],
+        context: {
+          pageUri: window.location.href,
+          pageName: 'India 2030 Fund ? June 2026 Quarterly Update'
+        }
+      })
+    });
+    ok = res.ok;
+    if (!ok) console.error('[submitForm] HubSpot rejected submission', res.status, await res.text().catch(() => ''));
+  } catch (err) {
+    console.error('[submitForm] HubSpot submission failed', err);
+  }
+
   if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = submitBtn.dataset._t || submitBtn.textContent; }
+
+  if (ok) {
+    document.getElementById(content).style.display = 'none';
+    document.getElementById(success).style.display = 'block';
+  } else {
+    alert('Something went wrong sending your details — please try again, or email us directly if this keeps happening.');
+  }
 }
 
 // ?? SCROLL REVEAL ????????????????????????????????????????????????
